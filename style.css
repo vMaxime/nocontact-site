@@ -603,38 +603,88 @@ strong { font-weight: 650; }
   .tonight { font-size: 12.5px; padding: 8px 12px; }
 }
 
-/* Bento */
+/* Bento: each cell shows a piece of the app, then says what it is for */
 
 .features { background: rgba(16, 19, 42, 0.72); border-block: 1px solid rgba(255, 255, 255, 0.05); overflow: hidden; }
-.bento { display: grid; gap: 20px; grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.bento { display: grid; gap: 18px; grid-template-columns: repeat(5, minmax(0, 1fr)); }
 .bento .cell {
-  position: relative; overflow: hidden; grid-column: span 2;
-  padding: 30px 28px; min-height: 240px;
-  display: flex; flex-direction: column; justify-content: flex-end;
-  background: rgba(11, 14, 34, 0.55); border: 1px solid var(--border); border-radius: var(--radius);
-  transition: border-color 0.3s, transform 0.3s var(--ease);
+  grid-column: span 2; display: flex; flex-direction: column; padding: 10px 10px 26px;
+  border-radius: 26px; background: rgba(11, 14, 34, 0.6);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.07);
 }
 .bento .cell.wide { grid-column: span 3; }
-.bento .cell:hover { border-color: var(--border-2); transform: translateY(-2px); }
-.bento .cell::before, .bento .cell::after {
-  content: ""; position: absolute; border-radius: 50%; pointer-events: none;
-  border: 1px dashed rgba(255, 255, 255, 0.09);
+.bento h3 { font-size: 20px; line-height: 1.25; letter-spacing: -0.015em; margin: 22px 18px 8px; }
+.bento .cell > p { color: var(--muted); margin: 0 18px; font-size: 16px; max-width: 36em; }
+.bento .v {
+  position: relative; height: 210px; border-radius: 18px; overflow: hidden;
+  background: radial-gradient(110% 100% at 50% 0%, rgba(34, 39, 84, 0.8), rgba(11, 14, 34, 0.5) 75%);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  display: flex; align-items: center; justify-content: center; gap: 22px; padding: 18px;
 }
-.bento .cell::before { width: 190px; height: 190px; top: -70px; right: -60px; }
-.bento .cell::after { width: 110px; height: 110px; top: -30px; right: -20px; border-style: solid; border-color: rgba(255, 255, 255, 0.05); }
-.bento .icon {
-  width: 46px; height: 46px; border-radius: 14px; margin-bottom: auto;
-  display: grid; place-items: center; color: var(--gold);
-  background: rgba(242, 213, 138, 0.08); border: 1px solid rgba(242, 213, 138, 0.22);
-  transition: transform 0.3s var(--ease);
+.bento .v p { margin: 0; }
+.bento .v .k { color: var(--muted); font-size: 12.5px; }
+
+.v-sos .breath { position: relative; flex: none; width: 132px; height: 132px; display: grid; place-items: center; }
+.v-sos .breath i { position: absolute; inset: 0; border-radius: 50%; border: 1px solid rgba(242, 213, 138, 0.35); animation: inhale 8s ease-in-out infinite; }
+.v-sos .breath i:nth-child(2) { inset: 18px; border-color: rgba(242, 213, 138, 0.5); animation-delay: -0.25s; }
+.v-sos .breath i:nth-child(3) { inset: 36px; border: 0; background: radial-gradient(circle, rgba(255, 233, 168, 0.5), rgba(242, 213, 138, 0.12) 70%); animation-delay: -0.5s; }
+.v-sos .breath span { position: relative; font-size: 14px; font-weight: 600; }
+@keyframes inhale { 0%, 100% { transform: scale(0.72); opacity: 0.6; } 50% { transform: scale(1); opacity: 1; } }
+.v-sos .draft { flex: 1; min-width: 0; max-width: 300px; }
+.v-sos .bubble { background: var(--surface-2); border: 1px solid var(--border-2); border-radius: 16px 16px 16px 4px; padding: 12px 14px; margin: 8px 0 10px; font-size: 15px; line-height: 1.45; }
+.v-sos .caret { display: inline-block; width: 2px; height: 1.1em; margin-left: 2px; vertical-align: -3px; background: var(--gold); animation: blink 1.1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.v-sos .tag { display: inline-block; font-size: 12.5px; color: var(--gold); background: rgba(242, 213, 138, 0.1); border-radius: 999px; padding: 4px 10px; }
+
+.v-share .sharecard {
+  position: relative; width: 112px; height: 176px; border-radius: 14px; padding: 14px 10px 10px; text-align: center;
+  display: flex; flex-direction: column; align-items: center;
+  background: linear-gradient(180deg, #1D2146, #0B0E22); border: 1px solid var(--border-2);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5); transform: rotate(4deg); transition: transform 0.4s var(--ease);
 }
-.bento .cell:hover .icon { transform: scale(1.08); }
-.bento .icon svg { width: 22px; height: 22px; }
-.bento h3 { font-size: 20px; line-height: 1.25; letter-spacing: -0.015em; margin: 26px 0 8px; }
-.bento p { color: var(--muted); margin: 0; font-size: 16px; max-width: 34em; }
+.v-share .sharecard.back { position: absolute; transform: rotate(-8deg) translateX(-34px); opacity: 0.55; }
+.cell:hover .sharecard:not(.back) { transform: rotate(0deg) translateY(-4px); }
+.v-share svg { width: 100%; margin: 14px 0 10px; }
+.v-share b { font-size: 12px; }
+.v-share span { font-size: 9px; color: var(--muted); margin-top: 3px; }
+.v-share em { font-style: normal; font-size: 8.5px; color: var(--gold); margin-top: auto; letter-spacing: 0.04em; }
+
+.bento .v-journal { flex-direction: column; align-items: stretch; gap: 12px; padding: 18px 22px; }
+.v-journal .moods { display: flex; gap: 8px; }
+.v-journal .moods span { flex: 1; text-align: center; font-size: 13.5px; padding: 8px 0; border-radius: 12px; background: var(--surface); border: 1px solid var(--border); color: var(--muted); }
+.v-journal .moods .on { background: rgba(242, 213, 138, 0.14); border-color: rgba(242, 213, 138, 0.55); color: var(--gold); font-weight: 650; }
+.v-journal .entry { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 12px 14px; font-size: 14.5px; line-height: 1.45; }
+
+.bento .v-flags { flex-direction: column; align-items: stretch; gap: 10px; padding: 18px 26px; }
+.v-flags p { max-width: 380px; }
+.v-flags p { display: flex; align-items: center; gap: 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 11px 14px; font-size: 15px; }
+.v-flags p:nth-child(2) { margin-left: 22px; }
+.v-flags p:nth-child(3) { margin-left: 44px; }
+.v-flags svg { flex: none; width: 18px; height: 18px; color: var(--danger); }
+
+.v-widgets .widget { border-radius: 22px; background: linear-gradient(180deg, #171B38, #0B0E22); border: 1px solid var(--border-2); box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45); padding: 14px; display: flex; flex-direction: column; }
+.v-widgets .small { width: 130px; height: 130px; justify-content: flex-end; }
+.v-widgets .small b { font-size: 44px; line-height: 1; letter-spacing: -0.04em; }
+.v-widgets .widget span { font-size: 12px; color: var(--muted); margin-top: 4px; }
+.v-widgets .medium { width: 250px; height: 130px; justify-content: space-between; }
+.v-widgets .medium svg { height: 74px; width: auto; align-self: flex-start; }
+
+.bento .v-relapse { flex-direction: column; gap: 14px; }
+.v-relapse .zero { color: var(--muted); font-size: 15px; }
+.v-relapse .zero b { font-size: 46px; color: var(--text); letter-spacing: -0.04em; margin-right: 6px; }
+.v-relapse .kept { display: grid; grid-template-columns: repeat(6, 14px); gap: 12px 16px; }
+.v-relapse .kept i { width: 8px; height: 8px; margin: 3px; border-radius: 50%; background: var(--star); box-shadow: 0 0 12px 4px rgba(255, 233, 168, 0.45); animation: breathe 4s ease-in-out calc(var(--d) * -0.37s) infinite; }
+
 @media (max-width: 820px) {
   .bento { grid-template-columns: 1fr; }
-  .bento .cell, .bento .cell.wide { grid-column: auto; min-height: 0; }
+  .bento .cell, .bento .cell.wide { grid-column: auto; }
+  .v-sos .breath { width: 96px; height: 96px; }
+  .v-sos .breath i:nth-child(2) { inset: 13px; } .v-sos .breath i:nth-child(3) { inset: 26px; }
+  .bento .v { gap: 14px; padding: 14px; height: auto; min-height: 210px; }
+  .bento .v-flags, .bento .v-journal { padding: 16px 14px; }
+  .v-widgets .medium { width: auto; flex: 1; min-width: 0; }
+  .v-widgets .small { width: 112px; height: 130px; }
+  .v-flags p:nth-child(2) { margin-left: 10px; } .v-flags p:nth-child(3) { margin-left: 20px; }
 }
 
 /* Privacy band */
