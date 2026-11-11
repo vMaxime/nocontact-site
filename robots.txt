@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nocontact.maximeverdonck.fr/sitemap.xml
